@@ -1,1 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Student Data Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
+        :root {
+            --primary-bg: #11131a;
+            --secondary-bg: #181b23;
+            --card-bg: #181c24;
+            --accent: #3ecfff;
+            --accent-glow: 0 0 16px #3ecfff88;
+            --white: #fff;
+            --gray: #b0b3b8;
+            --border: #23252b;
+            --success: #00ffae;
+            --danger: #ff3b3b;
+            --radius: 14px;
+            --shadow: 0 6px 32px 0 rgba(0,0,0,0.7);
+            --transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        body {
+            background: linear-gradient(120deg, #10121a 0%, #181b23 100%);
+            color: var(--white);
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            letter-spacing: 0.01em;
+        }
+
+        .main-container {
+            background: var(--secondary-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: 36px auto;
+            max-width: 1200px;
+            padding: 0;
+            border: 1.5px solid var(--border);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #181c24 60%, #23252b 100%);
+            color: var(--white);
+            padding: 54px 32px 28px 32px;
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            letter-spacing: 0.06em;
+        }
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.7rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            text-shadow: 0 2px 24px #3ecfff33;
+        }
+        .header p {
+            font-size: 1.18rem;
+            color: var(--gray);
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            background: var(--secondary-bg);
+            border-bottom: 2px solid var(--border);
+            padding: 0 24px;
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--gray);
+            background: transparent;
+            font-weight: 600;
+            padding: 18px 36px;
+            font-size: 1.08rem;
+            border-radius: var(--radius) var(--radius) 0 0;
+            transition: var(--transition);
+            letter-spacing: 0.09em;
+            position: relative;
+        }
+        .nav-tabs .nav-link.active,
+        .nav-tabs .nav-link:hover {
+            color: var(--accent);
+            background: var(--primary-bg);
+            border-bottom: 2.5px solid var(--accent);
+            box-shadow: 0 2px 16px #3ecfff22;
+            z-index: 2;
+        }
+        .nav-tabs .nav-link i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        .tab-content {
+            padding: 42px 32px;
+            background: var(--primary-bg);
+            min-height: 600px;
+        }
+
+        /* Stats Cards */
+        .stats-card {
+            background: linear-gradient(120deg, #181c24 60%, #23252b 100%);
+            color: var(--white);
+            border-radius: var(--radius);
+            padding: 32px 0 24px 0;
+            text-align: center;
+            margin-bottom: 24px;
+            border: 1.5px solid var(--border);
+            box-shadow: 0 2px 24px #3ecfff11;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .stats-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 6px 32px #3ecfff33;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .stats-number {
+            font-size: 2.7rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+            text-shadow: 0 2px 18px #3ecfff55;
+            letter-spacing: 0.04em;
+        }
+        .stats-card div:last-child {
+            font-weight: 500;
+            text-transform: uppercase;
+            color: var(--gray);
+            font-size: 1.01rem;
+            letter-spacing: 0.09em;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            box-shadow: 0 2px 16px #3ecfff11;
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+        .card-header {
+            background: transparent;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.15rem;
+            border-bottom: 1px solid var(--border);
+            padding: 20px 28px;
+            letter-spacing: 0.08em;
+        }
+        .card-header i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .card-body {
+            padding: 28px;
+        }
+
+        /* Table Styles */
+        .table {
+            background: var(--secondary-bg);
+            color: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        .table thead th {
+            background: var(--primary-bg);
+            color: var(--accent);
+            border: none;
+            font-weight: 700;
+            padding: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.95rem;
+        }
+        .table tbody tr {
+            transition: var(--transition);
+        }
+        .table tbody tr:hover td {
+            background: #23252b;
+            color: var(--accent);
+        }
+        .table tbody td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Form Controls */
+        .form-control, .form-select {
+            background: var(--secondary-bg);
+            color: var(--white);
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            padding: 14px 18px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px #3ecfff33;
+            outline: none;
+            background: var(--primary-bg);
+        }
+        .form-label {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.85rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            border-radius: var(--radius);
+            padding: 12px 28px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px #3ecfff22;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary-bg);
+            border-color: var(--accent);
+            box-shadow: var(--accent-glow);
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background: var(--primary-bg);
+            color: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 4px 24px #3ecfff44;
+        }
+        .btn-success {
+            background: var(--success);
+            color: var(--primary-bg);
+            border-color: var(--success);
+        }
+        .btn-success:hover, .btn-success:focus {
+            background: var(--primary-bg);
+            color: var(--success);
+            border-color: var(--success);
+        }
+        .btn-info {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        .btn-info:hover, .btn-info:focus {
+            background: var(--accent);
+            color: var(--primary-bg);
+        }
+        .btn-light {
+            background: var(--secondary-bg);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        .btn-light:hover, .btn-light:focus {
+            background: var(--accent);
+            color: var(--primary-bg);
+        }
+        .btn-secondary {
+            background: var(--gray);
+            color: var(--primary-bg);
+            border-color: var(--gray);
+        }
+        .btn-secondary:hover, .btn-secondary:focus {
+            background: var(--primary-bg);
+            color: var(--gray);
+            border-color: var(--gray);
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            height: 500px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--card-bg);
+            box-shadow: 0 2px 16px #3ecfff11;
+            display: flex;
+            flex-direction: column;
+        }
+        .chatbot-header {
+            background: transparent;
+            color: var(--accent);
+            padding: 20px;
+            font-weight: 700;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 0.08em;
+        }
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: var(--secondary-bg);
+            font-size: 1rem;
+        }
+        .chatbot-input {
+            padding: 20px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+        }
+        .message {
+            margin-bottom: 18px;
+            padding: 14px 20px;
+            border-radius: var(--radius);
+            max-width: 85%;
+            position: relative;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px #3ecfff11;
+        }
+        .message.user {
+            background: var(--accent);
+            color: var(--primary-bg);
+            margin-left: auto;
+            font-weight: 600;
+        }
+        .message.bot {
+            background: var(--primary-bg);
+            color: var(--white);
+            border: 1px solid var(--border);
+        }
+        .message strong {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* AI Feature Cards */
+        .ai-feature-card {
+            background: linear-gradient(120deg, #181c24 60%, #23252b 100%);
+            color: var(--white);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1.5px solid var(--border);
+            box-shadow: 0 2px 16px #3ecfff11;
+            transition: var(--transition);
+        }
+        .ai-feature-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 32px #3ecfff33;
+            transform: translateY(-2px) scale(1.02);
+        }
+        .ai-feature-card h4 {
+            margin-bottom: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+        }
+        .ai-feature-card p {
+            opacity: 0.92;
+            margin-bottom: 18px;
+            color: var(--gray);
+        }
+
+        /* File Upload Area */
+        .file-upload-area {
+            border: 2.5px dashed var(--accent);
+            border-radius: var(--radius);
+            padding: 60px 40px;
+            text-align: center;
+            background: var(--secondary-bg);
+            color: var(--gray);
+            transition: var(--transition);
+            position: relative;
+        }
+        .file-upload-area:hover, .file-upload-area.dragover {
+            background: var(--primary-bg);
+            color: var(--accent);
+            border-color: var(--white);
+            transform: scale(1.02);
+            box-shadow: 0 4px 32px #3ecfff33;
+        }
+        .file-upload-area i {
+            font-size: 3.5rem;
+            margin-bottom: 18px;
+            color: var(--accent);
+            opacity: 0.8;
+        }
+        .file-upload-area h4 {
+            margin-bottom: 12px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .file-upload-area p {
+            margin-bottom: 18px;
+            opacity: 0.8;
+        }
+
+        /* Badge Styles */
+        .badge {
+            padding: 7px 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-size: 0.78rem;
+            background: var(--primary-bg);
+            border: 1px solid var(--border);
+        }
+        .bg-success {
+            background: var(--success) !important;
+            color: var(--primary-bg) !important;
+            border: none;
+        }
+        .bg-danger {
+            background: var(--danger) !important;
+            color: var(--white) !important;
+            border: none;
+        }
+
+        /* Alerts */
+        .alert {
+            border-radius: var(--radius);
+            border: none;
+            padding: 18px 24px;
+            margin-bottom: 18px;
+            font-weight: 600;
+            background: #1a1d24;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px #3ecfff22;
+        }
+        .alert-success {
+            background: #0e1e18;
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+        .alert-warning {
+            background: #23252b;
+            color: #ffe066;
+            border-left: 4px solid #ffe066;
+        }
+        .alert-danger {
+            background: #23181b;
+            color: var(--danger);
+            border-left: 4px solid var(--danger);
+        }
+        .alert-info {
+            background: #181b23;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--gray);
+        }
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: 0.25em;
+            color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .main-container {
+                margin: 10px;
+                max-width: 100vw;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .tab-content {
+                padding: 18px 6px;
+            }
+            .stats-card, .ai-feature-card {
+                padding: 18px;
+            }
+            .card-body {
+                padding: 14px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-bg);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0080ff;
+        }
+
+        /* Focus styles for accessibility */
+        .btn:focus, .form-control:focus, .form-select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Animation for page load */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Hover effects for interactive elements */
+        .table tbody tr:hover td {
+            background: var(--light-gray);
+        }
+
+        .form-control:hover, .form-select:hover {
+            border-color: var(--black);
+            transform: translateY(-1px);
+        }
+
+        /* Special effects for AI features */
+        .ai-feature-card:nth-child(2) {
+            background: var(--accent-color);
+        }
+
+        .ai-feature-card:nth-child(3) {
+            background: var(--secondary-color);
+        }
+
+        /* Custom style for the Choose File button */
+        #fileUploadArea .btn.btn-primary {
+            background: linear-gradient(90deg, #3ecfff 0%, #00bfff 100%);
+            color: #181b23;
+            border: none;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            box-shadow: 0 4px 24px #3ecfff44;
+            transition: all 0.18s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s;
+            padding: 14px 36px;
+            font-size: 1.08rem;
+            margin-top: 18px;
+        }
+
+        #fileUploadArea .btn.btn-primary:hover, 
+        #fileUploadArea .btn.btn-primary:focus {
+            background: linear-gradient(90deg, #00bfff 0%, #3ecfff 100%);
+            color: #fff;
+            box-shadow: 0 6px 32px #00bfff66;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-graduation-cap"></i> Unified Student Data Dashboard</h1>
+            <p class="mb-0">Advanced AI-powered student data analysis and management system</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab">
+                    <i class="fas fa-chart-bar"></i> Dashboard
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ai-tab" data-bs-toggle="tab" data-bs-target="#ai" type="button" role="tab">
+                    <i class="fas fa-brain"></i> AI Analysis
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="chatbot-tab" data-bs-toggle="tab" data-bs-target="#chatbot" type="button" role="tab">
+                    <i class="fas fa-comments"></i> AI Chatbot
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="upload-tab" data-bs-toggle="tab" data-bs-target="#upload" type="button" role="tab">
+                    <i class="fas fa-upload"></i> Upload Data
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="dashboardTabsContent">
+            <!-- Dashboard Tab -->
+            <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                <div class="row">
+                    <!-- Statistics Cards -->
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <div class="stats-number" id="totalStudents">-</div>
+                            <div>Total Students</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <div class="stats-number" id="validEmails">-</div>
+                            <div>Valid Emails</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <div class="stats-number" id="avgInterests">-</div>
+                            <div>Avg Interests</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <div class="stats-number" id="filteredCount">-</div>
+                            <div>Filtered Results</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-filter"></i> Filters & Search
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-label">Branch</label>
+                                <select class="form-select" id="branchFilter">
+                                    <option value="">All Branches</option>
+                                    {% for branch in branches %}
+                                    <option value="{{ branch }}">{{ branch }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Year</label>
+                                <select class="form-select" id="yearFilter">
+                                    <option value="">All Years</option>
+                                    {% for year in years %}
+                                    <option value="{{ year }}">Year {{ year }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Interest</label>
+                                <select class="form-select" id="interestFilter">
+                                    <option value="">All Interests</option>
+                                    {% for interest in interests %}
+                                    <option value="{{ interest }}">{{ interest }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Search</label>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search students...">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button class="btn btn-primary" onclick="applyFilters()">
+                                    <i class="fas fa-search"></i> Apply Filters
+                                </button>
+                                <button class="btn btn-success" onclick="exportData()">
+                                    <i class="fas fa-download"></i> Export CSV
+                                </button>
+                                <button class="btn btn-info" onclick="clearFilters()">
+                                    <i class="fas fa-times"></i> Clear Filters
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-users"></i> Student Data
+                    </div>
+                    <button id="toggleChineseBtn" class="btn btn-secondary" onclick="toggleChineseStudents()">Show Only Chinese student</button>
+
+                    <div class="card-body">
+                        <div id="loadingIndicator" class="loading">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3">Loading student data...</p>
+                        </div>
+                        <div id="studentTable" style="display: none;">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th onclick="sortTable('Name')" style="cursor:pointer;">
+                                                Name <span id="sortIcon-Name" class="sort-icon">▲▼</span>
+                                            </th>
+                                            <th onclick="sortTable('Branch')" style="cursor:pointer;">
+                                                Branch <span id="sortIcon-Branch" class="sort-icon">▲▼</span>
+                                            </th>
+                                            <th onclick="sortTable('Year')" style="cursor:pointer;">
+                                                Year <span id="sortIcon-Year" class="sort-icon">▲▼</span>
+                                            </th>
+                                            <th onclick="sortTable('Email')" style="cursor:pointer;">
+                                                Email <span id="sortIcon-Email" class="sort-icon">▲▼</span>
+                                            </th>
+                                            <th onclick="sortTable('Interests')" style="cursor:pointer;">
+                                                Interests <span id="sortIcon-Interests" class="sort-icon">▲▼</span>
+                                            </th>
+                                            <th onclick="sortTable('Valid_Email')" style="cursor:pointer;">
+                                                Valid Email <span id="sortIcon-Valid_Email" class="sort-icon">▲▼</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="studentTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-primary mt-3" onclick="sendEmailsToSelected()">Send Personalized Emails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Analysis Tab -->
+            <div class="tab-pane fade" id="ai" role="tabpanel">
+                {% if ai_available %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="ai-feature-card">
+                            <h4><i class="fas fa-sitemap"></i> Student Clustering</h4>
+                            <p>Group students based on interests and characteristics using AI clustering.</p>
+                            <button class="btn btn-light" onclick="performClustering()">
+                                <i class="fas fa-play"></i> Run Clustering
+                            </button>
+                        </div>
+                        <div class="ai-feature-card">
+                            <h4><i class="fas fa-chart-line"></i> Success Prediction</h4>
+                            <p>Predict student success potential using machine learning algorithms.</p>
+                            <button class="btn btn-light" onclick="predictSuccess()">
+                                <i class="fas fa-play"></i> Predict Success
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="aiResults" class="mt-4"></div>
+                {% else %}
+                <div class="alert alert-warning">
+                    <h4><i class="fas fa-exclamation-triangle"></i> AI Features Not Available</h4>
+                    <p>To enable AI features, please install scikit-learn:</p>
+                    <code>pip install scikit-learn</code>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Chatbot Tab -->
+            <div class="tab-pane fade" id="chatbot" role="tabpanel">
+                <div class="chatbot-container">
+                    <div class="chatbot-header">
+                        <i class="fas fa-robot"></i> AI Student Data Assistant
+                    </div>
+                    <div class="chatbot-messages" id="chatbotMessages">
+                        <div class="message bot">
+                            <strong>AI Assistant:</strong> Hello! I'm your AI student data assistant. Ask me anything about the student data, statistics, or get insights. Try asking:
+                            <ul class="mb-0 mt-2">
+                                <li>"Show me statistics"</li>
+                                <li>"How many CSE students are there?"</li>
+                                <li>"Find students interested in AI/ML"</li>
+                                <li>"Show me year 2 students"</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chatbot-input">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="chatbotInput" placeholder="Ask me about student data...">
+                            <button class="btn btn-primary" onclick="sendChatbotMessage()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Tab -->
+            <div class="tab-pane fade" id="upload" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-upload"></i> Upload Student Data
+                    </div>
+                    <div class="card-body">
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                            <h4>Drag & Drop Excel/CSV File</h4>
+                            <p>or click to browse</p>
+                            <input type="file" id="fileInput" accept=".xlsx,.csv" style="display: none;">
+                            <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-folder-open"></i> Choose File
+                            </button>
+                        </div>
+                        <div id="uploadStatus"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Global variables
+        let currentFilters = {
+            branch: '',
+            year: '',
+            interest: '',
+            search: ''
+        };
+        let showingChinese = false;
+        let currentSort = { column: '', asc: true };
+        let lastDisplayedStudents = [];
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStudentData();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // File upload
+            const fileInput = document.getElementById('fileInput');
+            const fileUploadArea = document.getElementById('fileUploadArea');
+
+            fileInput.addEventListener('change', handleFileUpload);
+            
+            // Drag and drop
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.add('dragover');
+            });
+
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.classList.remove('dragover');
+            });
+
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    handleFileUpload();
+                }
+            });
+
+            // Chatbot enter key
+            document.getElementById('chatbotInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendChatbotMessage();
+                }
+            });
+        }
+
+        function loadStudentData() {
+            fetch('/api/students')
+                .then(response => response.json())
+                .then(data => {
+                    displayStudents(data.students);
+                    updateStatistics(data);
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                    document.getElementById('studentTable').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    document.getElementById('loadingIndicator').innerHTML = 
+                        '<div class="alert alert-danger">Error loading student data</div>';
+                });
+        }
+
+        
+
+        function displayStudents(students) {
+            lastDisplayedStudents = students.slice(); // Save for sorting
+            if (currentSort.column) {
+                students = sortStudents(students, currentSort.column, currentSort.asc);
+            }
+            const tbody = document.getElementById('studentTableBody');
+            tbody.innerHTML = '';
+
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+    <td><input type="checkbox" class="student-checkbox" value="${student.Email}"></td>
+    <td>${student.Name || 'N/A'}</td>
+    <td>${student.Branch || 'N/A'}</td>
+    <td>${student.Year || 'N/A'}</td>
+    <td>${student.Email || 'N/A'}</td>
+    <td>${student.Interests || 'N/A'}</td>
+    <td>
+        <span class="badge ${student.Valid_Email ? 'bg-success' : 'bg-danger'}">
+            ${student.Valid_Email ? 'Valid' : 'Invalid'}
+        </span>
+    </td>
+`;
+                tbody.appendChild(row);
+            });
+            updateSortIcons();
+        }
+
+        function sortTable(column) {
+            if (currentSort.column === column) {
+                currentSort.asc = !currentSort.asc;
+            } else {
+                currentSort.column = column;
+                currentSort.asc = true;
+            }
+            displayStudents(lastDisplayedStudents);
+        }
+
+        function sortStudents(students, column, asc) {
+            return students.slice().sort((a, b) => {
+                let valA = a[column] || '';
+                let valB = b[column] || '';
+                // For Valid_Email, sort by boolean
+                if (column === 'Valid_Email') {
+                    valA = !!valA;
+                    valB = !!valB;
+                }
+                // For Year, sort numerically if possible
+                if (column === 'Year') {
+                    valA = isNaN(Number(valA)) ? valA : Number(valA);
+                    valB = isNaN(Number(valB)) ? valB : Number(valB);
+                }
+                if (valA < valB) return asc ? -1 : 1;
+                if (valA > valB) return asc ? 1 : -1;
+                return 0;
+            });
+        }
+
+        function updateSortIcons() {
+            const columns = ['Name', 'Branch', 'Year', 'Email', 'Interests', 'Valid_Email'];
+            columns.forEach(col => {
+                const icon = document.getElementById('sortIcon-' + col);
+                if (!icon) return;
+                icon.textContent = '';
+                if (currentSort.column === col) {
+                    icon.textContent = currentSort.asc ? '▲' : '▼';
+                }
+            });
+        }
+
+        function updateStatistics(data) {
+            document.getElementById('totalStudents').textContent = data.total_count;
+            document.getElementById('filteredCount').textContent = data.filtered_count;
+            
+            // Calculate other stats
+            const validEmails = data.students.filter(s => s.Valid_Email).length;
+            const avgInterests = data.students.reduce((sum, s) => sum + (s.Interest_Count || 0), 0) / data.students.length;
+            
+            document.getElementById('validEmails').textContent = validEmails;
+            document.getElementById('avgInterests').textContent = avgInterests.toFixed(1);
+        }
+
+        function applyFilters() {
+            currentFilters = {
+                branch: document.getElementById('branchFilter').value,
+                year: document.getElementById('yearFilter').value,
+                interest: document.getElementById('interestFilter').value,
+                search: document.getElementById('searchInput').value
+            };
+
+            const params = new URLSearchParams();
+            Object.keys(currentFilters).forEach(key => {
+                if (currentFilters[key]) {
+                    params.append(key, currentFilters[key]);
+                }
+            });
+
+            fetch(`/api/students?${params.toString()}`)
+                .then(response => response.json())
+                .then(data => {
+                    displayStudents(data.students);
+                    updateStatistics(data);
+                })
+                .catch(error => console.error('Error applying filters:', error));
+        }
+
+        function clearFilters() {
+            document.getElementById('branchFilter').value = '';
+            document.getElementById('yearFilter').value = '';
+            document.getElementById('interestFilter').value = '';
+            document.getElementById('searchInput').value = '';
+            currentFilters = { branch: '', year: '', interest: '', search: '' };
+            loadStudentData();
+        }
+
+        function exportData() {
+            const params = new URLSearchParams();
+            Object.keys(currentFilters).forEach(key => {
+                if (currentFilters[key]) {
+                    params.append(key, currentFilters[key]);
+                }
+            });
+
+            window.location.href = `/api/export-csv?${params.toString()}`;
+        }
+
+        function handleFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            document.getElementById('uploadStatus').innerHTML = 
+                '<div class="alert alert-info">Uploading file...</div>';
+
+            fetch('/api/upload-excel', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('uploadStatus').innerHTML = 
+                        `<div class="alert alert-success">${data.message}<br>Total students: ${data.total_students}</div>`;
+                    loadStudentData();
+                } else {
+                    document.getElementById('uploadStatus').innerHTML = 
+                        `<div class="alert alert-danger">${data.message}</div>`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('uploadStatus').innerHTML = 
+                    '<div class="alert alert-danger">Error uploading file</div>';
+            });
+        }
+
+        // AI Functions
+        function performClustering() {
+            document.getElementById('aiResults').innerHTML = 
+                '<div class="loading"><div class="spinner-border"></div><p>Performing clustering analysis...</p></div>';
+
+            fetch('/api/ai/clustering')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        displayClusteringResults(data.clusters);
+                    } else {
+                        document.getElementById('aiResults').innerHTML = 
+                            `<div class="alert alert-danger">${data.error}</div>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('aiResults').innerHTML = 
+                        '<div class="alert alert-danger">Error performing clustering</div>';
+                });
+        }
+
+        function displayClusteringResults(clusters) {
+            let html = '<div class="card"><div class="card-header">Clustering Results</div><div class="card-body">';
+            html += '<div class="row">';
+            
+            Object.keys(clusters).forEach(clusterId => {
+                const cluster = clusters[clusterId];
+                html += `
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Cluster ${clusterId}</h5>
+                                <p><strong>Students:</strong> ${cluster.Student_Count}</p>
+                                <p><strong>Avg Interests:</strong> ${cluster.Avg_Interests}</p>
+                                <p><strong>Most Common Branch:</strong> ${cluster.Most_Common_Branch}</p>
+                                <p><strong>Most Common Year:</strong> ${cluster.Most_Common_Year}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div></div></div>';
+            document.getElementById('aiResults').innerHTML = html;
+        }
+
+        
+
+        function predictSuccess() {
+            document.getElementById('aiResults').innerHTML = 
+                '<div class="loading"><div class="spinner-border"></div><p>Predicting student success...</p></div>';
+
+            fetch('/api/ai/success-prediction')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        displaySuccessPrediction(data.predictions);
+                    } else {
+                        document.getElementById('aiResults').innerHTML = 
+                            `<div class="alert alert-danger">${data.error}</div>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('aiResults').innerHTML = 
+                        '<div class="alert alert-danger">Error predicting success</div>';
+                });
+        }
+
+        function displaySuccessPrediction(predictions) {
+            let html = '<div class="card"><div class="card-header">Success Prediction Results</div><div class="card-body">';
+            
+            if (predictions.high_potential && predictions.high_potential.length > 0) {
+                html += '<h5>High Potential Students</h5><div class="table-responsive"><table class="table">';
+                html += '<thead><tr><th>Name</th><th>Branch</th><th>Year</th><th>Success Probability</th></tr></thead><tbody>';
+                
+                predictions.high_potential.forEach(student => {
+                    html += `<tr><td>${student.Name}</td><td>${student.Branch}</td><td>${student.Year}</td><td>${(student.Success_Probability * 100).toFixed(1)}%</td></tr>`;
+                });
+                
+                html += '</tbody></table></div>';
+            }
+            
+            html += '</div></div>';
+            document.getElementById('aiResults').innerHTML = html;
+        }
+
+        // Chatbot Functions
+        function sendChatbotMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            addChatbotMessage(message, 'user');
+            input.value = '';
+
+            // Send to backend
+            fetch('/api/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.response) {
+                    addChatbotMessage(data.response, 'bot');
+                } else {
+                    addChatbotMessage('Sorry, I encountered an error processing your request.', 'bot');
+                }
+            })
+            .catch(error => {
+                addChatbotMessage('Sorry, I encountered an error. Please try again.', 'bot');
+            });
+        }
+
+        function addChatbotMessage(message, sender) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `<strong>You:</strong> ${message}`;
+            } else {
+                messageDiv.innerHTML = `<strong>AI Assistant:</strong> ${message.replace(/\n/g, '<br>')}`;
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function sendEmailsToSelected() {
+            const checkboxes = document.querySelectorAll('.student-checkbox:checked');
+            if (checkboxes.length === 0) {
+                alert('Please select at least one student.');
+                return;
+            }
+            const emails = Array.from(checkboxes).map(cb => cb.value);
+
+            fetch('/api/send-emails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    emails: emails,
+                    subject: "Your Subject",
+                    message: "Your Message"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Emails sent successfully!');
+                } else {
+                    alert('Error sending emails: ' + data.message);
+                }
+            })
+            .catch(() => alert('Error sending emails.'));
+        }
+
+        // Optional: Select All functionality
+        function toggleSelectAll(source) {
+            const checkboxes = document.querySelectorAll('.student-checkbox');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
+
+        function loadChineseNameStudents() {
+            fetch('/api/students?chinese=true')
+                .then(response => response.json())
+                .then(data => {
+                    displayStudents(data.students); // Use your existing function to display
+                });
+        }
+
+        function toggleChineseStudents() {
+            const btn = document.getElementById('toggleChineseBtn');
+            if (!showingChinese) {
+                // Show only Chinese students
+                fetch('/api/students?chinese=true')
+                    .then(response => response.json())
+                    .then(data => {
+                        displayStudents(data.students);
+                        btn.textContent = "Show All Students";
+                        showingChinese = true;
+                    });
+            } else {
+                // Show all students
+                loadStudentData(); // Your existing function to load all students
+                btn.textContent = "Show Only Chinese student";
+                showingChinese = false;
+            }
+        }
+    </script>
+</body>
+</html>
