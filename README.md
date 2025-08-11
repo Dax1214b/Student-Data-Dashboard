@@ -16,63 +16,63 @@
     • Filter by branch, year, interest, or keywords.<br>
     • Special filter for Chinese names.<br>
   
-  • AI-Powered Insights
-    • Clustering based on interests.
-    • Personalized activity recommendations.
-    • Predicts students with high success potential.
+  • AI-Powered Insights<br>
+    • Clustering based on interests.<br>
+    • Personalized activity recommendations.<br>
+    • Predicts students with high success potential.<br>
   
-  • Interactive Chatbot
-    • Ask natural language questions like:
-      • "Show students interested in AI/ML"
-      • "How many CSE students are there?"
-      • "List third-year students"
+  • Interactive Chatbot<br>
+    • Ask natural language questions like:<br>
+      • "Show students interested in AI/ML"<br>
+      • "How many CSE students are there?"<br>
+      • "List third-year students"<br>
     
-  • Data Cleaning & Processing
-    • Standardizes year format.
-    • Validates email addresses.
-    • Extracts and counts interests.
+  • Data Cleaning & Processing<br>
+    • Standardizes year format.<br>
+    • Validates email addresses.<br>
+    • Extracts and counts interests.<br>
   
-  • Visualization
-    • Graphs and charts using Matplotlib and Seaborn.
+  • Visualization<br>
+    • Graphs and charts using Matplotlib and Seaborn.<br>
 
-🛠 Tech Stack
-  • Backend: Python, Flask
-  • Frontend: HTML, CSS, JavaScript
-  • Data Processing: Pandas, NumPy
-  • Machine Learning: scikit-learn (KMeans, RandomForestClassifier)
-  • Visualization: Matplotlib, Seaborn
+🛠 Tech Stack<br>
+  • Backend: Python, Flask<br>
+  • Frontend: HTML, CSS, JavaScript<br>
+  • Data Processing: Pandas, NumPy<br>
+  • Machine Learning: scikit-learn (KMeans, RandomForestClassifier)<br>
+  • Visualization: Matplotlib, Seaborn<br>
 
-📂 Project Structure
+📂 Project Structure<br>
 
-  ├── ai_student_analysis.py        # AI-based student data analysis
-  ├── genai_student_analyzer.py     # General AI analyzer module
-  ├── student_analysis.py           # Core analysis logic
-  ├── student_chatbot.py            # Chatbot logic for CLI interaction
-  ├── unified_dashboard.py          # Main Flask application
-  ├── student_data_with_edge_cases.xlsx - Sheet1.csv  # Sample dataset
-  ├── student_analysis_dashboard.png # Dashboard screenshot
-  ├── student_clusters.png           # Cluster visualization
-  └── README.md                      # Project documentation
+  ├── ai_student_analysis.py        # AI-based student data analysis<br>
+  ├── genai_student_analyzer.py     # General AI analyzer module<br>
+  ├── student_analysis.py           # Core analysis logic<br>
+  ├── student_chatbot.py            # Chatbot logic for CLI interaction<br>
+  ├── unified_dashboard.py          # Main Flask application<br>
+  ├── student_data_with_edge_cases.xlsx - Sheet1.csv  # Sample dataset<br>
+  ├── student_analysis_dashboard.png # Dashboard screenshot<br>
+  ├── student_clusters.png           # Cluster visualization<br>
+  └── README.md                      # Project documentation<br>
 
-▶️ How to Open & Run the Project
-Option 1 - Run as a Flask Web App
-  1. Make sure you are in the project folder and your virtual environment is activated.
+▶️ How to Open & Run the Project<br>
+Option 1 - Run as a Flask Web App<br>
+  1. Make sure you are in the project folder and your virtual environment is activated.<br>
     
-  2. Run:
-      • python unified_dashboard.py
+  2. Run:<br>
+      • python unified_dashboard.py<br>
       
-  3. Open your browser and go to:
-      • 127.0.0.1:5000
+  3. Open your browser and go to:<br>
+      • 127.0.0.1:5000<br>
       
-  4. You’ll see the interactive dashboard where you can:
-      • Filter and search students
-      • View AI-powered recommendations
-      • See success predictions and clusters
+  4. You’ll see the interactive dashboard where you can:<br>
+      • Filter and search students<br>
+      • View AI-powered recommendations<br>
+      • See success predictions and clusters<br>
 
-Option 2 – Run the Chatbot in Terminal
-  1. Run:
-      python student_chatbot.py
-  2. Type your queries, for example:
-      • "Show students interested in AI/ML"
-      • "List all second-year students"
-      • "How many students are in CSE?"
+Option 2 – Run the Chatbot in Terminal<br>
+  1. Run:<br>
+      python student_chatbot.py<br>
+  2. Type your queries, for example:<br>
+      • "Show students interested in AI/ML"<br>
+      • "List all second-year students"<br>
+      • "How many students are in CSE?"<br>
