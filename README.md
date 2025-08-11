@@ -1,6 +1,8 @@
 🎓 AI-Powered Student Data Analysis Dashboard
+<br>
 
 📌 Overview
+<br>
   This project is a Flask-based web application that analyzes and visualizes student data using machine learning.
   It combines:
   
@@ -9,9 +11,10 @@
     💬 Chatbot for natural language queries.
 
 🚀 Features
-  •   Student Filtering & Search
-    • Filter by branch, year, interest, or keywords.
-    • Special filter for Chinese names.
+<br>
+  •   Student Filtering & Search<br>
+    • Filter by branch, year, interest, or keywords.<br>
+    • Special filter for Chinese names.<br>
   
   • AI-Powered Insights
     • Clustering based on interests.
